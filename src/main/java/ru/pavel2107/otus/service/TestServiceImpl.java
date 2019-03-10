@@ -47,6 +47,7 @@ public class TestServiceImpl implements TestService {
                 line = reader.readLine();
             }
             reader.close();
+            result = true;
         }
         catch ( IOException e){
             e.printStackTrace();
