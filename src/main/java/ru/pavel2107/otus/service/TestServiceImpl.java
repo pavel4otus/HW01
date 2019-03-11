@@ -20,39 +20,9 @@ public class TestServiceImpl implements TestService {
         this.questionRepository = questionRepository;
     }
 
-    //
-    // файл имеет следующий формат
-    // <id вопроса>;<вопрос>;<номер ответа>;<список вопросов через точку с запятой>
-    //
-    public boolean init( File file){
-        boolean result = false;
-        BufferedReader reader;
-
-        try{
-            reader = new BufferedReader( new FileReader( file));
-            String line = reader.readLine();
-            while ( line != null){
-                if( !line.startsWith( "#")){
-                    String elements[] = line.split(";");
-                    String id = elements[0];
-                    String question = elements[1];
-                    int rightAnswer = Integer.parseInt(elements[2]);
-                    List<String> answer = new ArrayList<>();
-                    for (int i = 3; i < elements.length; i++) {
-                        answer.add(elements[i]);
-                    }
-                    Question q = new Question(id, question, answer, rightAnswer);
-                    questionRepository.save(q);
-                }
-                line = reader.readLine();
-            }
-            reader.close();
-            result = true;
-        }
-        catch ( IOException e){
-            e.printStackTrace();
-        }
-        return result;
+    public boolean init(){
+        questionRepository.init();
+        return true;
     }
 
     public boolean inviteStudent(){
@@ -91,7 +61,7 @@ public class TestServiceImpl implements TestService {
     public void showResult(){
         List<Question> questionList = new ArrayList<>(questionRepository.getAll());
         int correctAnswers = 0;
-        System.out.println( "Результаты тестирования");
+        System.out.println( "Результаты тестирования " + testStore.getStudent().toString());
         for( Question question : questionList){
             System.out.println( question.toString());
             int studentAnswer = testStore.getAnswers().get( question.getId());

@@ -4,7 +4,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="QuestionRepository" class="ru.pavel2107.otus.repository.inmemory.InMemoryQuestionRepositoryImpl"/>
+    <bean id="QuestionRepository" class="ru.pavel2107.otus.repository.inmemory.InMemoryQuestionRepositoryImpl">
+        <property name="fileName" value="test.txt"/>
+    </bean>
 
 
     <bean id="testService" class="ru.pavel2107.otus.service.TestServiceImpl">

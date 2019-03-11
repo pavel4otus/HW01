@@ -18,12 +18,7 @@ public class Main {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/spring-context.xml");
         TestService testService = context.getBean( TestService.class);
 
-        String fileName = "test.txt";
-        ClassLoader classLoader = Main.class.getClassLoader();
-        File file = new File(classLoader.getResource(fileName).getFile());
-
-
-        testService.init( file);
+        testService.init();
         testService.inviteStudent();
         testService.processTest();
         testService.showResult();
